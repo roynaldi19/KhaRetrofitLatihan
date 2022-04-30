@@ -3,6 +3,7 @@ package com.roynaldi19.kharetrofitlatihan.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.roynaldi19.kharetrofitlatihan.databinding.ItemListBinding
 import com.roynaldi19.kharetrofitlatihan.model.User
 
@@ -18,12 +19,13 @@ class UserAdapter(private val list: ArrayList<User>) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val (id, email, first_name, last_name) = list[position]
-        val text = "$id" +
-                "$email" +
-                "$first_name" +
-                "$last_name"
-        holder.binding.tvResponse.text = text
+        val ( first_name, email, avatar) = list[position]
+        Glide.with(holder.itemView.context)
+            .load(avatar)
+            .circleCrop()
+            .into(holder.binding.avatar)
+        holder.binding.tvFirstName.text = first_name
+        holder.binding.tvEmail.text = email
     }
 
     override fun getItemCount() = list.size
